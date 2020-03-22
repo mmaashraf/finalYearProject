@@ -8,3 +8,4 @@ for venv
 $ source final_project/final/bin/activate
 
 create branches for use
+$ git branch <<branch_name>>
