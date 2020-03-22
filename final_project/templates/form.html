@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="success {{category}}" role="success">
+        <h3>{{message}}</h3>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+
+
+
+    <div class="form">
+        <form action= "{{ url_for('auth.predict') }}" method="POST">
+            <div class="tbody">
+                <table align="center" border="solid" >
+                   
+                    <tr >
+                    <th rowspan="1" width="50%" style="text-align:center">PROPERTY</th>
+                    <th rowspan="1" width="50%" style="text-align:center">VALUE</th>
+                    </tr>
+                
+                    <tr>
+                    <td style="text-align:center" >Total bil</td>
+                    <td><input class="input" type="number" name="totalBil" step="0.01" min=0 max=75></td>
+                    </tr>
+                    <tr>
+                    <td style="text-align:center">Direct bil</td>
+                    <td><input class="input" type="number" name="directBil" step="0.01" min=0 max=19.7></td>
+                    </tr>
+                    <tr>
+                    <td style="text-align:center">Albumin</td>
+                    <td><input class="input" type="number" name="albumin" step="0.01" min=0 max=2000></td>
+                    </tr>
+                    <tr>
+                    <td style="text-align:center">A/G ratio</td>
+                    <td><input class="input"  type="number" name="a/g" step="0.01" min=0 max=4929></td>
+                    </tr>
+                    <tr>
+                    <td style="text-align:center">SGPT</td>
+                    <td><input class="input" type="number" name="sgpt" step="0.01" min=0 max=9.6></td>
+                    </tr>
+                    <tr>
+                    <td style="text-align:center">SGOT</td>
+                    <td><input class="input" type="number" name="sgot" step="0.01" min=0 max=5.5></td>
+                    </tr>
+                    <tr>
+                    <td style="text-align:center">Alkphos</td>
+                    <td><input class="input" type="number" name="alkphos" step="0.01" min=0 max=2.8></td>
+                    </tr>
+                    <tr>
+                    <td style="text-align:center">Total Protein</td>
+                    <td><input class="input" type="number" name="totalPro" step="0.01" min=0 max=2110></td>
+                    </tr>
+                   
+                    </table>
+            </div>
+            <br/>
+            <button class="button" type="submit">Submit</button>
+
+        </form>
+
+    </div>
+{% endblock %}
