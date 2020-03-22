@@ -96,14 +96,23 @@ def predict():
     #    'A/G ratio', 'SGPT', 'SGOT', 'Alkphos']
 
 
-
+        print("keys:",request.form.keys)
 
         print(totalBil,totalPro,albumin,ag,sgpt,sgot,totalPro,alkphos)
 
         import pickle
         from numpy import array
 
-        rf=pickle.load(open("/home/ashraf/Desktop/final_project/model_rf","rb"))
+        from  os import getcwd
+        cwd = getcwd()
+        print(cwd)
+        from flask import current_app
+        app_name=current_app.name
+
+        selectedModel=request.form.get('model')
+
+        print(selectedModel)
+        rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
         prediction=rf.predict(array([totalBil,directBil,totalPro,albumin,ag,sgpt,sgot,alkphos]).reshape(1,-1))
         print("prediction is ",(prediction))
         boolean=bool(prediction)
