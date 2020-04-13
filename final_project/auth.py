@@ -50,6 +50,21 @@ def signup_post():
     email=request.form.get('email')
     name=request.form.get('name')
     pwd=request.form.get('password')
+    c_pwd=request.form.get('p-c')
+    
+    if not (str(pwd) == str(c_pwd)):
+        flash(' passwords dont match ','warning')
+        print(' passwords dont match ')
+        return redirect(url_for('auth.signup')) 
+
+    # import re
+    # checkpwd=re.match(r'[A-Za-z0-9@#$%^&+=]{6,}', str(pwd)) 
+    # if checkpwd is None:
+    #     flash("password doesn't meet the req",'warning')
+    #     print(" passwords doesn't meet the req")
+    #     return redirect(url_for('auth.signup'))
+
+    print("password" ,pwd,email)
 
     from .models import User
 
