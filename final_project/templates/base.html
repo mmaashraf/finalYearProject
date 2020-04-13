@@ -14,6 +14,22 @@
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
+
+/* div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 200;
+  padding: 5px;
+  background-color: #cae8ca;
+  border: 2px solid #4CAF50;
+} */
+div.alert {
+  position: center;
+  top: 500;
+  padding: 5px;
+  background-color: #cae8ca;
+  border: 2px solid #4CAF50;
+}
 </style>
 <body>
 
@@ -49,13 +65,28 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </div>
 
 
-<div>
+<div class="w3-large">
+    <!-- {% with messages = get_flashed_messages() %} -->
+    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+   hello
+    <!-- {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %} -->
+
+       </div>   
+<section >
     {% block content %}
     {% endblock %}
- </div>
-
-
-
+</section>
+ 
 
 <!-- 
 <!DOCTYPE html>
