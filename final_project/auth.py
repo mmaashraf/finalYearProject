@@ -91,18 +91,28 @@ def predict():
     if request.method=='POST':
         print("need to use ml model ")
         
-        max_vals=[7.500e+01 ,1.970e+01 ,2.110e+03 ,2.000e+03, 4.929e+03, 9.600e+00,
+        max_vals=[9.000e+01,7.500e+01 ,1.970e+01 ,2.110e+03 ,2.000e+03, 4.929e+03, 9.600e+00,
  5.500e+00 ,2.800e+00 ]
+        age=float(request.form.get('age'))/max_vals[0]
+        totalBil=float(request.form.get('totalBil'))/max_vals[1]
+        directBil=float(request.form.get('directBil'))/max_vals[2]
+        totalPro=float(request.form.get('totalPro'))/max_vals[3]
 
-        totalBil=float(request.form.get('totalBil'))/max_vals[0]
-        directBil=float(request.form.get('directBil'))/max_vals[1]
-        totalPro=float(request.form.get('totalPro'))/max_vals[2]
-
-        albumin=float(request.form.get('albumin'))/max_vals[3]
-        ag=float(request.form.get('a/g'))/max_vals[4]
-        sgpt=float(request.form.get('sgpt'))/max_vals[5]
-        sgot=float(request.form.get('sgot'))/max_vals[6]
-        alkphos=float(request.form.get('alkphos'))/max_vals[7]
+        albumin=float(request.form.get('albumin'))/max_vals[4]
+        ag=float(request.form.get('a/g'))/max_vals[5]
+        sgpt=float(request.form.get('sgpt'))/max_vals[6]
+        sgot=float(request.form.get('sgot'))/max_vals[7]
+        alkphos=float(request.form.get('alkphos'))/max_vals[8]
+        
+        male=1
+        female=1
+        gender_option=request.form.get("gender")
+        if gender_option is "male":
+            male=1
+            female=0
+        else:
+            male=0
+            female=1
         
 
 
@@ -113,7 +123,7 @@ def predict():
 
         print("keys:",request.form.keys)
 
-        print(totalBil,totalPro,albumin,ag,sgpt,sgot,totalPro,alkphos)
+        print(age, totalBil,totalPro,albumin,ag,sgpt,sgot,totalPro,alkphos)
 
         import pickle
         from numpy import array
@@ -126,20 +136,187 @@ def predict():
 
         selectedModel=request.form.get('model')
 
-        print(selectedModel)
-        rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
-        prediction=rf.predict(array([totalBil,directBil,totalPro,albumin,ag,sgpt,sgot,alkphos]).reshape(1,-1))
-        print("prediction is ",(prediction))
-        boolean=bool(prediction)
-        from flask import flash
-        flash("prediction is "+str(boolean),"success")
-        
+        print(selectedModel,"\n",type(selectedModel))
+        if not str(selectedModel).__contains__("_ga") and not "model_nn":
+            rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
+            prediction=rf.predict(array([totalBil,directBil,totalPro,albumin,ag,sgpt,sgot,alkphos]).reshape(1,-1))
+            print("prediction is ",(prediction))
+            boolean=bool(prediction)
+            from flask import flash
+            flash("prediction is "+str(boolean),"success")
+            
 
-        dat=request.form.values()
-        for i in dat:
-            print(i)
-        redirect(url_for('main.index'))
+            dat=request.form.values()
+            for i in dat:
+                print(i)
+            redirect(url_for('main.index'))
+
+        elif str(selectedModel) == "model_logreg_ga":
+            rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
+            prediction=rf.predict(array([age, totalBil, directBil, totalPro, albumin,ag, alkphos, female, male]).reshape(1,-1))
+            print("prediction is ",(prediction))
+            boolean=bool(prediction)
+            print("bool prediction is ",boolean)
+            
+            from flask import flash
+            flash("prediction is "+str(boolean),"success")
+            
+
+            dat=request.form.values()
+            for i in dat:
+                print(i)
+            redirect(url_for('main.index'))
         
+        elif selectedModel == "model_nb_ga":
+            rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
+            prediction=rf.predict(array([directBil, totalPro, albumin, sgpt,sgot,alkphos, female, male]).reshape(1,-1))
+            print("prediction is ",(prediction))
+            boolean=bool(prediction)
+            print("bool prediction is ",boolean)
+            
+            from flask import flash
+            flash("prediction is "+str(boolean),"success")
+            
+
+            dat=request.form.values()
+            for i in dat:
+                print(i)
+            redirect(url_for('main.index'))
+            
+
+        elif selectedModel == "model_df_ga":
+            rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
+            prediction=rf.predict(array([age, totalBil, directBil, ag,female]).reshape(1,-1))
+            print("prediction is ",(prediction))
+            boolean=bool(prediction)
+            print("bool prediction is ",boolean)
+            
+            from flask import flash
+            flash("prediction is "+str(boolean),"success")
+            
+
+            dat=request.form.values()
+            for i in dat:
+                print(i)
+            redirect(url_for('main.index'))
+
+        elif selectedModel == "model_adb_ga":
+            rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
+            prediction=rf.predict(array([age, ag,sgpt,sgot, alkphos, female]).reshape(1,-1))
+            print("prediction is ",(prediction))
+            boolean=bool(prediction)
+            print("bool prediction is ",boolean)
+            
+            from flask import flash
+            flash("prediction is "+str(boolean),"success")
+            
+
+            dat=request.form.values()
+            for i in dat:
+                print(i)
+            redirect(url_for('main.index'))
+
+      
+
+        elif selectedModel == "model_rf_ga":
+            rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
+            prediction=rf.predict(array([age, totalBil, directBil, totalPro, albumin,ag]).reshape(1,-1))
+            print("prediction is ",(prediction))
+            boolean=bool(prediction)
+            print("bool prediction is ",boolean)
+            
+            from flask import flash
+            flash("prediction is "+str(boolean),"success")
+            
+
+            dat=request.form.values()
+            for i in dat:
+                print(i)
+            redirect(url_for('main.index'))
+
+        elif selectedModel == "model_svc_ga":
+            rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
+            prediction=rf.predict(array([age, directBil, totalPro, albumin,ag, sgpt,sgot,alkphos, female]).reshape(1,-1))
+            print("prediction is ",(prediction))
+            boolean=bool(prediction)
+            print("bool prediction is ",boolean)
+            
+            from flask import flash
+            flash("prediction is "+str(boolean),"success")
+            
+
+            dat=request.form.values()
+            for i in dat:
+                print(i)
+            redirect(url_for('main.index'))
+        
+        elif selectedModel == "model_evc_ga":
+            rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
+            prediction=rf.predict(array([age, directBil, totalPro, albumin,sgpt]).reshape(1,-1))
+            print("prediction is ",(prediction))
+            boolean=bool(prediction)
+            print("bool prediction is ",boolean)
+            
+            from flask import flash
+            flash("prediction is "+str(boolean),"success")
+            
+
+            dat=request.form.values()
+            for i in dat:
+                print(i)
+            redirect(url_for('main.index'))
+
+        elif selectedModel == "model_vc_ga":
+            rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
+            prediction=rf.predict(array([age, directBil, totalPro, albumin,sgpt]).reshape(1,-1))
+            print("prediction is ",(prediction))
+            boolean=bool(prediction)
+            print("bool prediction is ",boolean)
+            
+            from flask import flash
+            flash("prediction is "+str(boolean),"success")
+            
+
+            dat=request.form.values()
+            for i in dat:
+                print(i)
+            redirect(url_for('main.index'))
+        
+        elif selectedModel == "model_adb_ga":
+            rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
+            prediction=rf.predict(array([age,ag, sgpt,sgot,alkphos, female]).reshape(1,-1))
+            print("prediction is ",(prediction))
+            boolean=bool(prediction)
+            print("bool prediction is ",boolean)
+            
+            from flask import flash
+            flash("prediction is "+str(boolean),"success")
+            
+
+            dat=request.form.values()
+            for i in dat:
+                print(i)    
+            redirect(url_for('main.index'))
+        
+        elif selectedModel == "model_nn":
+            rf=pickle.load(open(str(cwd)+"/"+str(app_name)+"/"+str(selectedModel),"rb"))
+            prediction=rf.predict_classes(array([age,totalBil,directBil,totalPro,albumin,ag,sgpt,sgot,alkphos,female,male]).reshape(1,-1))
+            print("prediction is ",prediction)
+            boolean=bool(prediction)
+            print("bool prediction is ",boolean)
+            
+            from flask import flash
+            flash("prediction is "+str(boolean),"success")
+            
+
+            dat=request.form.values()
+            for i in dat:
+                print(i)
+            redirect(url_for('main.index'))
+
+
+                
+            
     return render_template("form.html")
 
 # @auth.route("/value",methods=['POST'])
