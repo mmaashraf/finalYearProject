@@ -152,8 +152,16 @@
                           
                             </div>
                           </div>
-
                           
+                          <div class="row">
+                            <div class="col-50">
+                              <strong><label for="age">Age</label></strong>
+                            </div>
+                            <div class="col-50">
+                              <input class="input" type="number" name="age" value="30" step="1" min=0 max="96">
+                          
+                            </div>
+                          </div>
 
                           <div class="row">
                             <div class="col-50">
@@ -252,11 +260,23 @@
               <select name="model" size="1" default="rf">
                 <option value="model_rf">Random Forest</option>
                 <option value="model_df">Decision Tree</option>
-                <option value="model_evc">Voting class</option>
+                <option value="model_evc">Voting class-lr,dt,svm</option>
                 <option value="model_logreg">Logistic reg</option>
                 <option value="model_nb"> Naive Bayes</option>
-                <option value="model_vc">Voting class2</option>
+                <option value="model_vc">Voting class-rf,lr,svm,nb</option>
                 <option value="model_svc">SVC</option>
+                <option value="model_adb">adaboost</option>
+
+                <option value="model_adb_ga">GA & adaboost</option>
+
+                <option value="model_rf_ga">GA & Random Forest</option>
+                <option value="model_df_ga">GA & Decision Tree</option>
+                <option value="model_evc_ga">GA & Voting class-lr,dt,svm</option>
+                <option value="model_logreg_ga">GA & Logistic reg</option>
+                <option value="model_nb_ga">GA &  Naive Bayes</option>
+                <option value="model_vc_ga">GA & Voting class-rf,lr,svm,nb</option>
+                <option value="model_svc_ga">GA & SVC</option>
+                <option value="model_nn">Neural Net</option>
           
               </select> 
             </div>
