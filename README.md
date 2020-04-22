@@ -12,6 +12,6 @@ $ git branch <<branch_name>>
 
 
 after u after installed the dependencies and activated the virtual environment, run the below cmds to run the web app
-$ export FLASK_APP=hello
+$ export FLASK_APP=final_project
 $ export FLASK_DEBUG=0
 $ flask run
