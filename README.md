@@ -45,6 +45,9 @@ It’s a behavioral diagram and it represents the behavior using finite state tr
 <h1> Results </h1>
 <img width="800" alt="Results" src="https://github.com/mmaashraf/finalYearProject/assets/37049007/d5384b8b-1c2d-4b0f-82b9-11c959d9bb7a">
 <br><hr>
+
+<h3> The findings were published as a Reasearch Paper at 'Annals of the Romanian Society for Cell Biology' - https://www.annalsofrscb.ro/index.php/journal/article/view/2768/2300.
+</h3>
 Note: I haven't tested the below steps in a while, so please take it with a grain of salt.
 
 <h2>How to Install?</h2>
