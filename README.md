@@ -1,5 +1,10 @@
 # finalYearProject - Liver Disease Detection
 
+<h3> TLDR <br>
+•	Designed & Programmed a Full Stack web application using Flask with 6 web pages, integrating it with 13 machine learning & deep learning models trained on UCI ILPD dataset to accurately detect liver disease. <br>
+•	Leveraged Drop-Off & Genetic Algorithm techniques identify optimal features & fine-tune model performance.<br>
+•	Published research findings (<a href="https://www.annalsofrscb.ro/index.php/journal/article/view/2768/2300"> Reasearch Paper Link</a>) derived from comparative analysis, contributing to the medical data analysis field.
+</h1>
 <h1> What Inspired this?</h1>
 
 <div>
